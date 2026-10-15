@@ -1,0 +1,40 @@
+@import "tailwindcss";
+
+@theme {
+  --color-ocean: #087d8f; /* botões, links, mapa e elementos principais */
+  --color-ocean-dark: #073b4c; /* hero, áreas escuras e contraste */
+  --color-deep: #052f3a; /* rodapé */
+  --color-petroleum: #12343b; /* títulos */
+  --color-coral: #e8785b; /* destaques, ícones e pequenos títulos */
+  --color-coral-light: #f4a786; /* foco, contadores e detalhes */
+  --color-peach: #ffd6b9; /* textos sobre fundos escuros */
+  --color-sand: #fff1e3; /* botões e superfícies claras */
+  --color-sand-rose: #fff0e8; /* etiquetas de destaque */
+  --color-mist: #e7f3f4; /* fundo da seção do mapa */
+  --color-water: #bfe0e5; /* base visual do mapa */
+  --color-offwhite: #f8f7f2; /* fundo geral */
+  --color-steel: #71878b; /* textos secundários */
+
+  --font-sans: var(--font-dm-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-gilda), ui-serif, Georgia, serif;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-offwhite font-sans text-petroleum antialiased;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-coral-light);
+    outline-offset: 2px;
+  }
+
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+}
