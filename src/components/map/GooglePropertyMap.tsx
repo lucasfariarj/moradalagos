@@ -11,9 +11,17 @@ interface GooglePropertyMapProps {
   apiKey: string;
   mapId: string;
   properties: Property[];
+  center?: { lat: number; lng: number };
+  zoom?: number;
 }
 
-export function GooglePropertyMap({ apiKey, mapId, properties }: GooglePropertyMapProps) {
+export function GooglePropertyMap({
+  apiKey,
+  mapId,
+  properties,
+  center = REGIAO_DOS_LAGOS,
+  zoom = 10,
+}: GooglePropertyMapProps) {
   const [activeId, setActiveId] = useState<string | null>(null);
   const active = properties.find((p) => p.id === activeId);
 
@@ -22,8 +30,8 @@ export function GooglePropertyMap({ apiKey, mapId, properties }: GooglePropertyM
       <Map
         className="h-full min-h-[360px] w-full"
         mapId={mapId}
-        defaultCenter={REGIAO_DOS_LAGOS}
-        defaultZoom={10}
+        defaultCenter={center}
+        defaultZoom={zoom}
         gestureHandling="cooperative"
         disableDefaultUI
         zoomControl

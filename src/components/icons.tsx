@@ -100,3 +100,29 @@ export const MinusIcon = (p: IconProps) => (
     <path d="M5 12h14" />
   </Icon>
 );
+
+export const CheckIcon = (p: IconProps) => (
+  <Icon {...p}>
+    <path d="m5 12.5 4.5 4.5L19 7.5" />
+  </Icon>
+);
+
+export const CarIcon = (p: IconProps) => (
+  <Icon {...p}>
+    <path d="M5 16V11.5L7 6.8A1.5 1.5 0 0 1 8.4 6h7.2a1.5 1.5 0 0 1 1.4.8l2 4.7V16M4 16h16v2.5a.5.5 0 0 1-.5.5H17v-2M7 19H4.5a.5.5 0 0 1-.5-.5V16M5 11.5h14" />
+    <circle cx="8" cy="13.8" r=".6" fill="currentColor" />
+    <circle cx="16" cy="13.8" r=".6" fill="currentColor" />
+  </Icon>
+);
+
+export const ShareIcon = (p: IconProps) => (
+  <Icon {...p}>
+    <path d="M12 15V4M8 8l4-4 4 4M5 12v7a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-7" />
+  </Icon>
+);
+
+export const ChevronRightIcon = (p: IconProps) => (
+  <Icon {...p}>
+    <path d="m10 7 5 5-5 5" />
+  </Icon>
+);

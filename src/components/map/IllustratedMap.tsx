@@ -17,11 +17,14 @@ export function projectProperties(properties: Property[]) {
   const [minLat, maxLat] = [Math.min(...lats), Math.max(...lats)];
   const [minLng, maxLng] = [Math.min(...lngs), Math.max(...lngs)];
   const span = 1 - PADDING * 2;
+  // Sem variação no eixo (ex.: um único imóvel), o ponto fica centralizado.
+  const project = (value: number, min: number, max: number) =>
+    max === min ? 0.5 : PADDING + ((value - min) / (max - min)) * span;
 
   return properties.map((property) => ({
     property,
-    x: PADDING + ((property.coordinates.lng - minLng) / (maxLng - minLng || 1)) * span,
-    y: PADDING + ((maxLat - property.coordinates.lat) / (maxLat - minLat || 1)) * span,
+    x: project(property.coordinates.lng, minLng, maxLng),
+    y: 1 - project(property.coordinates.lat, minLat, maxLat),
   }));
 }
 

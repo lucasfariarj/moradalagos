@@ -1,18 +1,21 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useFavorites } from "@/context/FavoritesContext";
 import { Logo } from "./Logo";
 import { CloseIcon, HeartIcon, MenuIcon } from "./icons";
 
 export const NAV_LINKS = [
-  { label: "Imóveis", href: "#imoveis" },
-  { label: "Regiões", href: "#mapa" },
-  { label: "Sobre nós", href: "#sobre" },
+  { label: "Imóveis", href: "/#imoveis" },
+  { label: "Regiões", href: "/#mapa" },
+  { label: "Sobre nós", href: "/#sobre" },
+  // O rodapé (#contato) existe em todas as páginas
   { label: "Contato", href: "#contato" },
 ];
 
-export function Header() {
+/** `solid`: fundo sempre escuro, para páginas sem foto de capa atrás do header. */
+export function Header({ solid: alwaysSolid = false }: { solid?: boolean }) {
   const { favorites } = useFavorites();
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -24,7 +27,7 @@ export function Header() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  const solid = scrolled || menuOpen;
+  const solid = alwaysSolid || scrolled || menuOpen;
 
   return (
     <header
@@ -33,9 +36,9 @@ export function Header() {
       }`}
     >
       <div className="mx-auto flex h-[74px] max-w-7xl items-center justify-between gap-6 px-6 lg:px-8">
-        <a href="#" aria-label="Morada Lagos, início" className="rounded-full">
+        <Link href="/" aria-label="Morada Lagos, início" className="rounded-full">
           <Logo />
-        </a>
+        </Link>
 
         <nav aria-label="Principal" className="hidden md:block">
           <ul className="flex items-center gap-8">
@@ -50,7 +53,7 @@ export function Header() {
         </nav>
 
         <div className="hidden items-center gap-7 md:flex">
-          <a href="#imoveis" className="flex items-center gap-2 text-[0.95rem] font-medium text-white hover:opacity-80">
+          <a href="/#imoveis" className="flex items-center gap-2 text-[0.95rem] font-medium text-white hover:opacity-80">
             <HeartIcon className="size-[18px]" strokeWidth={2} />
             Favoritos
             {favorites.length > 0 && (

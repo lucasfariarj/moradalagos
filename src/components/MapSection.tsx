@@ -1,19 +1,7 @@
-import type { Property } from "@/types/property";
-import { GooglePropertyMap } from "./map/GooglePropertyMap";
-import { IllustratedMap } from "./map/IllustratedMap";
+import { PropertyMap, type PropertyMapProps } from "./map/PropertyMap";
 import { PinIcon } from "./icons";
 
-interface MapSectionProps {
-  properties: Property[];
-  apiKey?: string;
-  mapId?: string;
-}
-
-export function MapSection({
-  properties,
-  apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY,
-  mapId = process.env.NEXT_PUBLIC_GOOGLE_MAPS_MAP_ID || "DEMO_MAP_ID",
-}: MapSectionProps) {
+export function MapSection(props: PropertyMapProps) {
   return (
     <section id="mapa" aria-labelledby="mapa-title" className="scroll-mt-20 bg-mist py-16 md:py-24">
       <div className="mx-auto max-w-[88rem] px-6">
@@ -37,14 +25,11 @@ export function MapSection({
           </div>
 
           <div className="min-h-[360px] lg:min-h-[450px]">
-            {apiKey ? (
-              <GooglePropertyMap apiKey={apiKey} mapId={mapId} properties={properties} />
-            ) : (
-              <IllustratedMap properties={properties} />
-            )}
+            <PropertyMap {...props} />
           </div>
         </div>
       </div>
     </section>
   );
 }
+

@@ -12,6 +12,28 @@ export function getProperties(): Property[] {
   return data as Property[];
 }
 
+export function getPropertyBySlug(slug: string): Property | undefined {
+  return getProperties().find((p) => p.slug === slug);
+}
+
+/** Imóveis do mesmo tipo primeiro, depois os da mesma cidade, depois os demais. */
+export function getSimilarProperties(property: Property, limit = 3): Property[] {
+  const score = (p: Property) => (p.type === property.type ? 2 : 0) + (p.city === property.city ? 1 : 0);
+  return getProperties()
+    .filter((p) => p.id !== property.id)
+    .sort((a, b) => score(b) - score(a))
+    .slice(0, limit);
+}
+
+export function propertyHref(property: Pick<Property, "slug">): string {
+  return `/imoveis/${property.slug}`;
+}
+
+/** Monta a URL do Unsplash no tamanho pedido. */
+export function imageUrl(src: string, width: number): string {
+  return `${src}?auto=format&fit=crop&w=${width}&q=75`;
+}
+
 export function filterProperties(properties: Property[], filters: PropertyFilters): Property[] {
   return properties.filter(
     (p) =>
