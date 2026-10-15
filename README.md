@@ -29,7 +29,9 @@ cp .env.example .env.local
 ```
 src/
   app/                 layout, página e tema (globals.css, com a paleta em @theme)
+  app/imoveis/[slug]/  página de detalhe do imóvel
   components/          seções da página (Header, Hero, SearchBar, FeaturedProperties, MapSection, About, Footer)
+    property/          galeria, ações (favoritar/compartilhar) e card de visita
     map/               GooglePropertyMap, IllustratedMap e marcadores de preço
   context/             favoritos (estado em memória)
   data/properties.json imóveis
@@ -40,6 +42,7 @@ src/
 ## O que funciona
 
 - A busca do hero (cidade/bairro, tipo, quartos), as buscas populares e as abas de tipo filtram a lista de imóveis.
+- Cada imóvel tem sua página em `/imoveis/[slug]` (gerada estaticamente): galeria com visualização ampliada, comodidades, valores (aluguel, condomínio, IPTU), formulário de visita, mapa e imóveis semelhantes.
 - Os favoritos atualizam o contador no header.
 - Os marcadores do mapa abrem um resumo do imóvel. O mapa ilustrado tem zoom.
 - O menu mobile e o formulário de newsletter funcionam (o formulário só mostra uma confirmação, sem envio).

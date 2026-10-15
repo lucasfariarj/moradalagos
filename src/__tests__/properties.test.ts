@@ -5,7 +5,10 @@ import {
   formatPriceShort,
   getLocations,
   getProperties,
+  getPropertyBySlug,
+  getSimilarProperties,
   pluralize,
+  propertyHref,
 } from "@/lib/properties";
 
 describe("lib/properties", () => {
@@ -41,6 +44,26 @@ describe("lib/properties", () => {
       const result = filterProperties(properties, { location: "Armação dos Búzios", type: "casa", bedrooms: 4 });
       expect(result).toEqual([]);
     });
+  });
+
+  it("busca imóvel pelo slug e monta o link", () => {
+    const property = getPropertyBySlug("refugio-a-beira-mar-mobiliado");
+    expect(property?.id).toBe("3");
+    expect(getPropertyBySlug("inexistente")).toBeUndefined();
+    expect(propertyHref(property!)).toBe("/imoveis/refugio-a-beira-mar-mobiliado");
+  });
+
+  it("tem slugs únicos", () => {
+    const slugs = properties.map((p) => p.slug);
+    expect(new Set(slugs).size).toBe(slugs.length);
+  });
+
+  it("sugere semelhantes do mesmo tipo e cidade primeiro", () => {
+    const [first] = properties; // apartamento em Armação dos Búzios
+    const similar = getSimilarProperties(first);
+    expect(similar).toHaveLength(3);
+    expect(similar.every((p) => p.type === "apartamento")).toBe(true);
+    expect(similar.map((p) => p.id)).not.toContain(first.id);
   });
 
   it("lista cidades e bairros únicos e ordenados", () => {

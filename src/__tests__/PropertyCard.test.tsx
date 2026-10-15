@@ -21,6 +21,10 @@ describe("<PropertyCard />", () => {
     expect(screen.getByText("Destaque")).toBeInTheDocument();
     expect(screen.getByText(/92 m²/)).toBeInTheDocument();
     expect(screen.getByRole("img", { name: property.title })).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: property.title })).toHaveAttribute(
+      "href",
+      "/imoveis/apartamento-com-luz-natural",
+    );
   });
 
   it("alterna o favorito e atualiza o contador do header", async () => {
